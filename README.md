@@ -1,6 +1,13 @@
-# go-readme : Example ReadMe.md file for Go libraries
+# Example README.md file for Go libraries
 
-See the original blog post for why this project exists : https://chilts.org/2017/01/10/readme-minimum-info-needed-for-your-golang-library
+When users of our library land on our project page, we need to make sure we have the right things in our `README.md` so
+that the user can find what they need to know quickly.
+
+Even though we have [GoDoc](https://godoc.org/), it is not enough and is not necessarily aimed at the same audience as
+the users who land here.
+
+See the original blog post for why this project exists :
+[README: Minimum Info needed for your GoLang library](https://chilts.org/2017/01/10/readme-minimum-info-needed-for-your-golang-library).
 
 ## Usage 
 
