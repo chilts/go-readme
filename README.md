@@ -11,7 +11,7 @@ See the original blog post for why this project exists :
 
 ## Usage 
 
-Copy the [template.md](https://raw.githubusercontent.com/chilts/go-readme/master/template.md) file from this repo and search and replace a few things:
+Copy the [template.md](https://github.com/chilts/go-readme/blob/master/template.md) ([raw template.md](https://raw.githubusercontent.com/chilts/go-readme/master/template.md)) file from this repo and search and replace a few things:
 
 * `__TITLE__` : A simple name, e.g. "BoltDB", "Goth", "Slugify", "UUID", "Sessions".
 * `__SLUG__` : The import name / project name, e.g. "bolt", "slugify", "uuid", "sessions", "goth".
