@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Go ReadMe - by @andychilton</title>
+  <link rel="icon" type="image/png" href="s/favicon.png">
+  <meta name="description" content="">
+  <meta name="author" content="Andrew Chilton - https://chilts.org/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="s/v/skeleton-v2.0.4/css/normalize.css">
+  <link rel="stylesheet" href="s/v/skeleton-v2.0.4/css/skeleton.css">
+  <link rel="stylesheet" href="s/css/styles.css">
+</head>
+<body>
+
+  <!-- #app -->
+  <div id="app" class="container">
+
+    <div class="row">
+      <div class="column" style="margin-top: 10%">
+        <h2>Go ReadMe</h2>
+        <p>
+          Generate the start of your ReadMe.md file for your Go library.
+        </p>
+      </div>
+    </div>
+
+    <!-- #specification -->
+    <div id="specification">
+      <h4>Create your ReadMe</h4>
+      <h5>Step {{ step }}</h5>
+
+      <!-- .step1 -->
+      <div class="row" v-if="step === 1">
+        <div class="one-half column">
+          <p>
+            <label for="nameInput">Project Name</label>
+            <input id="nameInput" class="u-full-width" v-model="name" placeholder="e.g. mux">
+            <br>
+            <span class="help">The name that will be imported (usually the name of your project/repo).</span>
+          </p>
+        </div>
+        <div class="one-half column">
+          <p>
+            <label for="summaryInput">Short Summary</label>
+            <input id="summaryInput" class="u-full-width" v-model="summary" placeholder="e.g. cancels the foobar when doing the bazbuz">
+            <br>
+            <span class="help">A short one-line summary, around 5-9 words.</span>
+          </p>
+        </div>
+      </div>
+      <!-- /.step1 -->
+
+      <!-- .step2 -->
+      <div class="row" v-if="step === 2">
+        <div class="column">
+          <label for="descInput">Description</label>
+          <textarea id="descInput" class="u-full-width" rows="5" placeholder="..." v-model="desc" style="height: 136px;"></textarea>
+        </div>
+      </div>
+      <!-- /.step2 -->
+
+      <!-- .step3 -->
+      <div class="row step step3" v-if="step === 3">
+        <div class="one-half column">
+          <p>
+            <label>Where is your repo hosted?</label>
+            <label for="where-github">
+              <input id="where-github" type="radio" v-model="where" value="github">
+              <span class="label-body">GitHub</span>
+            </label>
+            <label for="where-bitbucket">
+              <input id="where-bitbucket" type="radio" v-model="where" value="bitbucket">
+              <span class="label-body">BitBucket</span>
+            </label>
+            <span class="help">Depending on your answer, we'll ask different questions.</span>
+          </p>
+          <div v-if="where === 'github'">
+            <p>
+              <label for="usernameInput">GitHub Username</label>
+              <input id="usernameInput" class="u-full-width" v-model="username" placeholder="eg. chilts">
+              <br>
+              <span class="help">The &lt;username&gt; part of github.com/{{ username || '&lt;username&gt;' }}/{{ name || '&lt;name&gt' }}.</span>
+            </p>
+          </div>
+          <div v-if="where === 'bitbucket'">
+            <p>
+              <label for="usernameInput">BitBucket Username</label>
+              <input id="usernameInput" class="u-full-width" v-model="username" placeholder="eg. chilts">
+              <br>
+              <span class="help">The &lt;username&gt; part of bitbucket.org/{{ username || '&lt;username&gt;' }}/{{ name || '&lt;name&gt;' }}.</span>
+            </p>
+          </div>
+        </div>
+        <div class="one-half column">
+          <p>
+            <label for="installInput">Install Instructions</label>
+            <p>Is this correct?</p>
+            <pre><code>go get {{ where === 'github' ? 'github.com' : 'bitbucket.org' }}/{{ username || '&lt;username&lt;' }}/{{ name || '&lt;name&gt;' }}</code></pre>
+            <label for="installOkYes">
+              <input id="installOkYes" type="radio" v-model="installOk" value="yes">
+              <span class="label-body">Yes</span>
+            </label>
+            <label for="installOkNo">
+              <input id="installOkNo" type="radio" v-model="installOk" value="no">
+              <span class="label-body">No</span>
+            </label>
+          </p>
+          <p v-if="installOk === 'no'">
+            <label for="installInput">Install Instructions</label>
+            <input id="installInput" class="u-full-width" v-model="install" placeholder="go get ...">
+            <br>
+            <span class="help">Please provide your own <code>go get</code> instructions.</span>
+          </p>
+        </div>
+      </div>
+      <!-- /.step3 -->
+
+      <!-- .step4 -->
+      <div class="row" v-if="step === 1">
+        <div class="one-half column">
+        </div>
+        <div class="one-half column">
+        </div>
+      </div>
+      <!-- /.step4 -->
+
+      <div class="row">
+        <div class="one-half column" style="text-align: center;">
+          <button enabled="step > 1" class="button" @click="prevStep">&lt; Previous</button>
+        </div>
+        <div class="one-half column" style="text-align: center;">
+          <button enabled="step < 3" class="button" @click="nextStep">Next &gt;</button>
+        </div>
+      </div>
+
+    </div>
+    <!-- /#specification -->
+
+    <!-- #preview -->
+    <h4>Preview <small><a href="#" class="button button-primary">Copy ReadMe.md Text to Clipboard</a></small></h4>
+    <div id="preview" class="row">
+      <div class="column">
+        <pre><code>{{ readme }}</code></pre>
+      </div>
+      <!-- and markdown -->
+    </div>
+    <!-- /#preview -->
+
+    <!-- #footer -->
+    <div id="footer" class="row">
+      <div class="four columns">
+        <p>
+          &copy; Andrew Chilton
+          <a href="https://twitter.com/andychilton">@andychilton</a>
+        </p>
+      </div>
+      <div class="four columns" style="text-align: center;">
+        <p>
+          <a href="https://github.com/chilts/go-readme">GitHub</a>
+        </p>
+      </div>
+      <div class="four columns" style="text-align: right;">
+        <p>
+          (Ends)
+        </p>
+      </div>
+    </div>
+    <!-- /#footer -->
+
+  </div>
+  <!-- /#app -->
+
+  <script src="s/v/vue-v2.1.10/vue.js"></script>
+  <script src="s/js/app.js"></script>
+
+</body>
+</html>
