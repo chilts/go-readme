@@ -5,6 +5,9 @@ var md = window.markdownit()
 var pages = 4
 var debounce = null
 
+// setup Clipboard
+new Clipboard('#copy')
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -132,13 +135,16 @@ var app = new Vue({
           text += 'go get '
           text += ( this.where === 'github' ? 'github.com' : 'bitbucket.org' ) + '/' + this.username + '/' + this.name
           text += '\n```'
+          text += '\n\n'
         } // else, do nothing yet
-      } else {
+      }
+      else {
         if ( this.install ) {
           text += '## Install\n\n'
           text += '```\n'
           text += this.install
           text += '\n```'
+          text += '\n\n'
         } // else, do nothing yet
       }
 

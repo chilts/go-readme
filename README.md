@@ -9,6 +9,8 @@ at the same audience as the users who land here. This is especially true for peo
 See the original blog post for why this project exists :
 [README: Minimum Info needed for your GoLang library](https://chilts.org/2017/01/10/readme-minimum-info-needed-for-your-golang-library).
 
+Use the online [GoReadMe generator](http://go-readme.golang.nz/).
+
 ## Usage 
 
 Copy the [template.md](https://github.com/chilts/go-readme/blob/master/template.md) ([raw template.md](https://raw.githubusercontent.com/chilts/go-readme/master/template.md)) file from this repo and search and replace a few things:

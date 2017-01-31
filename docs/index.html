@@ -18,7 +18,7 @@
   <div id="app" class="container" style="max-width: unset;">
 
     <div class="row">
-      <div class="column" style="margin-top: 10%">
+      <div class="column" style="margin-top: 30px;">
         <h1>Go ReadMe</h1>
         <p>
           Generate the start of your ReadMe.md file for your Go library.
@@ -35,9 +35,7 @@
           <h4>All Steps</h4>
         </div>
         <div class="ten columns">
-          <h4 v-if="step < 5">Step {{ step }}</h4>
-          <h4 v-if="step === 5">Markdown</h4>
-          <h4 v-if="step === 6">Preview</h4>
+          <h4>Step {{ step }}</h4>
         </div>
       </div>
       <!-- /.row -->
@@ -53,10 +51,6 @@
           <button @click="setStep(3)" class="button u-full-width" v-bind:class="isStepActive(3)">Step 3</button>
           <br>
           <button @click="setStep(4)" class="button u-full-width" v-bind:class="isStepActive(4)">Step 4</button>
-          <br>
-          <button @click="setStep(5)" class="button u-full-width" v-bind:class="isStepActive(5)">Markdown</button>
-          <br>
-          <button @click="setStep(6)" class="button u-full-width" v-bind:class="isStepActive(6)">Preview</button>
         </div>
 
         <!-- .step1 -->
@@ -162,13 +156,13 @@
 
     <!-- #output -->
     <div id="output" class="row">
-      <div id="markdown" class="six columns">
-        <h4>ReadMe <small><a href="#" class="button button-primary">Copy Text to Clipboard</a></small></h4>
-        <pre><code style="overflow-x: auto;">{{ markdown }}</code></pre>
+      <div class="six columns">
+        <h4>ReadMe <small><button id="copy" class="button button-primary" data-clipboard-target="#markdown">Copy Text to Clipboard</button></small></h4>
+        <pre><code id="markdown" style="overflow-x: auto;">{{ markdown }}</code></pre>
       </div>
-      <div id="preview" class="six columns">
+      <div class="six columns">
         <h4>Preview (0.5s delay)</h4>
-        <div v-html="html" style="background-color: #f1f1f1; border: 1px solid #e1e1e1; border-radius: 4px;"></div>
+        <div v-html="html" id="preview" style="background-color: #f1f1f1; border: 1px solid #e1e1e1; border-radius: 4px;"></div>
       </div>
     </div>
     <!-- /#output -->
@@ -198,6 +192,7 @@
 
   <script src="s/v/vue-v2.1.10/vue.js"></script>
   <script src="s/v/markdown-it-v8.2.2/markdown-it.js"></script>
+  <script src="s/v/clipboard-v1.5.16/clipboard.js"></script>
   <script src="s/js/app.js"></script>
 
 </body>
