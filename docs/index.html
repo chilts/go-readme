@@ -15,11 +15,11 @@
 <body>
 
   <!-- #app -->
-  <div id="app" class="container">
+  <div id="app" class="container" style="max-width: unset;">
 
     <div class="row">
       <div class="column" style="margin-top: 10%">
-        <h2>Go ReadMe</h2>
+        <h1>Go ReadMe</h1>
         <p>
           Generate the start of your ReadMe.md file for your Go library.
         </p>
@@ -28,20 +28,45 @@
 
     <!-- #specification -->
     <div id="specification">
-      <h4>Create your ReadMe</h4>
-      <h5>Step {{ step }}</h5>
 
-      <!-- .step1 -->
-      <div class="row" v-if="step === 1">
-        <div class="one-half column">
+      <!-- .row -->
+      <div class="row">
+        <div class="two columns">
+          <h4>All Steps</h4>
+        </div>
+        <div class="ten columns">
+          <h4 v-if="step < 5">Step {{ step }}</h4>
+          <h4 v-if="step === 5">Markdown</h4>
+          <h4 v-if="step === 6">Preview</h4>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <!-- .row -->
+      <div class="row">
+
+        <div class="two columns">
+          <button @click="setStep(1)" class="button u-full-width" v-bind:class="isStepActive(1)">Step 1</button>
+          <br>
+          <button @click="setStep(2)" class="button u-full-width" v-bind:class="isStepActive(2)">Step 2</button>
+          <br>
+          <button @click="setStep(3)" class="button u-full-width" v-bind:class="isStepActive(3)">Step 3</button>
+          <br>
+          <button @click="setStep(4)" class="button u-full-width" v-bind:class="isStepActive(4)">Step 4</button>
+          <br>
+          <button @click="setStep(5)" class="button u-full-width" v-bind:class="isStepActive(5)">Markdown</button>
+          <br>
+          <button @click="setStep(6)" class="button u-full-width" v-bind:class="isStepActive(6)">Preview</button>
+        </div>
+
+        <!-- .step1 -->
+        <div class="five columns" v-if="step === 1">
           <p>
             <label for="nameInput">Project Name</label>
             <input id="nameInput" class="u-full-width" v-model="name" placeholder="e.g. mux">
             <br>
             <span class="help">The name that will be imported (usually the name of your project/repo).</span>
           </p>
-        </div>
-        <div class="one-half column">
           <p>
             <label for="summaryInput">Short Summary</label>
             <input id="summaryInput" class="u-full-width" v-model="summary" placeholder="e.g. cancels the foobar when doing the bazbuz">
@@ -49,21 +74,7 @@
             <span class="help">A short one-line summary, around 5-9 words.</span>
           </p>
         </div>
-      </div>
-      <!-- /.step1 -->
-
-      <!-- .step2 -->
-      <div class="row" v-if="step === 2">
-        <div class="column">
-          <label for="descInput">Description</label>
-          <textarea id="descInput" class="u-full-width" rows="5" placeholder="..." v-model="desc" style="height: 136px;"></textarea>
-        </div>
-      </div>
-      <!-- /.step2 -->
-
-      <!-- .step3 -->
-      <div class="row step step3" v-if="step === 3">
-        <div class="one-half column">
+        <div class="five columns" v-if="step === 1">
           <p>
             <label>Where is your repo hosted?</label>
             <label for="where-github">
@@ -76,84 +87,97 @@
             </label>
             <span class="help">Depending on your answer, we'll ask different questions.</span>
           </p>
-          <div v-if="where === 'github'">
-            <p>
-              <label for="usernameInput">GitHub Username</label>
-              <input id="usernameInput" class="u-full-width" v-model="username" placeholder="eg. chilts">
-              <br>
-              <span class="help">The &lt;username&gt; part of github.com/{{ username || '&lt;username&gt;' }}/{{ name || '&lt;name&gt' }}.</span>
-            </p>
-          </div>
-          <div v-if="where === 'bitbucket'">
-            <p>
-              <label for="usernameInput">BitBucket Username</label>
-              <input id="usernameInput" class="u-full-width" v-model="username" placeholder="eg. chilts">
-              <br>
-              <span class="help">The &lt;username&gt; part of bitbucket.org/{{ username || '&lt;username&gt;' }}/{{ name || '&lt;name&gt;' }}.</span>
-            </p>
-          </div>
-        </div>
-        <div class="one-half column">
-          <p>
-            <label for="installInput">Install Instructions</label>
-            <p>Is this correct?</p>
-            <pre><code>go get {{ where === 'github' ? 'github.com' : 'bitbucket.org' }}/{{ username || '&lt;username&lt;' }}/{{ name || '&lt;name&gt;' }}</code></pre>
-            <label for="installOkYes">
-              <input id="installOkYes" type="radio" v-model="installOk" value="yes">
-              <span class="label-body">Yes</span>
-            </label>
-            <label for="installOkNo">
-              <input id="installOkNo" type="radio" v-model="installOk" value="no">
-              <span class="label-body">No</span>
-            </label>
+          <p v-if="where === 'github'">
+            <label for="usernameInput">GitHub Username</label>
+            <input id="usernameInput" class="u-full-width" v-model="username" placeholder="eg. chilts">
+            <br>
+            <span class="help">The &lt;username&gt; part of github.com/{{ username || '&lt;username&gt;' }}/{{ name || '&lt;name&gt' }}.</span>
           </p>
-          <p v-if="installOk === 'no'">
+          <p v-if="where === 'bitbucket'">
+            <label for="usernameInput">BitBucket Username</label>
+            <input id="usernameInput" class="u-full-width" v-model="username" placeholder="eg. chilts">
+            <br>
+            <span class="help">The &lt;username&gt; part of bitbucket.org/{{ username || '&lt;username&gt;' }}/{{ name || '&lt;name&gt;' }}.</span>
+          </p>
+        </div>
+        <!-- /.step1 -->
+
+        <!-- .step2 -->
+        <div class="ten columns" v-if="step === 2">
+          <label for="descInput">Description</label>
+          <textarea id="descInput" class="u-full-width" rows="5" placeholder="..." v-model="desc" style="height: 136px;"></textarea>
+        </div>
+        <!-- /.step2 -->
+
+        <!-- .step3 -->
+        <div class="five columns" v-if="step === 3">
+
+        </div>
+        <div class="five columns" v-if="step === 3">
+          <label for="installInput">Install Instructions</label>
+          <p>Is this correct (please fill in project name and username first)?</p>
+          <pre><code>go get {{ where === 'github' ? 'github.com' : 'bitbucket.org' }}/{{ username || '&lt;username&gt;' }}/{{ name || '&lt;name&gt;' }}</code></pre>
+          <label for="installOkYes">
+            <input id="installOkYes" type="radio" v-model="installOk" value="yes">
+            <span class="label-body">Yes</span>
+          </label>
+          <label for="installOkNo">
+            <input id="installOkNo" type="radio" v-model="installOk" value="no">
+            <span class="label-body">No</span>
+          </label>
+          <div v-if="installOk === 'no'">
             <label for="installInput">Install Instructions</label>
             <input id="installInput" class="u-full-width" v-model="install" placeholder="go get ...">
             <br>
             <span class="help">Please provide your own <code>go get</code> instructions.</span>
-          </p>
+          </div>
         </div>
-      </div>
-      <!-- /.step3 -->
+        <!-- /.step3 -->
 
-      <!-- .step4 -->
-      <div class="row" v-if="step === 1">
-        <div class="one-half column">
-        </div>
-        <div class="one-half column">
-        </div>
-      </div>
-      <!-- /.step4 -->
+        <!-- .step4 -->
+        <div class="five columns" v-if="step === 4">
+          <p>Would you like to include badges for the following?</p>
+          <label>
+            <input type="checkbox" v-model="travis">
+            <span class="label-body">Travis CI Build Status</span>
+          </label>
+          <label>
+            <input type="checkbox" v-model="circle">
+            <span class="label-body">Circle CI (ToDo)</span>
+          </label>
+          <label>
+            <input type="checkbox" v-model="codeclimate">
+            <span class="label-body">Code Climate</span>
+          </label>
 
-      <div class="row">
-        <div class="one-half column" style="text-align: center;">
-          <button enabled="step > 1" class="button" @click="prevStep">&lt; Previous</button>
         </div>
-        <div class="one-half column" style="text-align: center;">
-          <button enabled="step < 3" class="button" @click="nextStep">Next &gt;</button>
+        <div class="five columns" v-if="step === 4">
         </div>
+
       </div>
+      <!-- /.row -->
 
     </div>
     <!-- /#specification -->
 
-    <!-- #preview -->
-    <h4>Preview <small><a href="#" class="button button-primary">Copy ReadMe.md Text to Clipboard</a></small></h4>
-    <div id="preview" class="row">
-      <div class="column">
-        <pre><code>{{ readme }}</code></pre>
+    <!-- #output -->
+    <div id="output" class="row">
+      <div id="markdown" class="six columns">
+        <h4>ReadMe <small><a href="#" class="button button-primary">Copy Text to Clipboard</a></small></h4>
+        <pre><code style="overflow-x: auto;">{{ markdown }}</code></pre>
       </div>
-      <!-- and markdown -->
+      <div id="preview" class="six columns">
+        <h4>Preview (0.5s delay)</h4>
+        <div v-html="html" style="background-color: #f1f1f1; border: 1px solid #e1e1e1; border-radius: 4px;"></div>
+      </div>
     </div>
-    <!-- /#preview -->
+    <!-- /#output -->
 
     <!-- #footer -->
     <div id="footer" class="row">
       <div class="four columns">
         <p>
-          &copy; Andrew Chilton
-          <a href="https://twitter.com/andychilton">@andychilton</a>
+          &copy; <a href="https://chilts.org">Andrew Chilton</a>
         </p>
       </div>
       <div class="four columns" style="text-align: center;">
@@ -163,7 +187,7 @@
       </div>
       <div class="four columns" style="text-align: right;">
         <p>
-          (Ends)
+          Follow me : <a href="https://twitter.com/andychilton">@andychilton</a>
         </p>
       </div>
     </div>
@@ -173,6 +197,7 @@
   <!-- /#app -->
 
   <script src="s/v/vue-v2.1.10/vue.js"></script>
+  <script src="s/v/markdown-it-v8.2.2/markdown-it.js"></script>
   <script src="s/js/app.js"></script>
 
 </body>

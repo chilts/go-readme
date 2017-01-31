@@ -1,6 +1,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
+var md = window.markdownit()
+
 var pages = 4
+var debounce = null
 
 var app = new Vue({
   el: '#app',
@@ -13,6 +16,10 @@ var app = new Vue({
     username : '',
     installOk: 'yes', // 'yes', 'no'.
     install: '',
+    travis : false,
+    circle : false,
+    codeclimate : false,
+    html : '',
 
     // display
     step: 1,
@@ -20,7 +27,7 @@ var app = new Vue({
 
     // Computed:
     // * url
-    // * readme
+    // * markdown
   },
   methods: {
     prevStep: function() {
@@ -34,7 +41,30 @@ var app = new Vue({
         return
       }
       this.step = this.step + 1
-    }
+    },
+    setStep: function(step) {
+      this.step = step
+    },
+    isStepActive: function (step) {
+      if ( step === this.step ) {
+        return { 'button-primary' : 1 }
+      }
+    },
+    render: function() {
+      console.log('render(): entry')
+
+      // cancel if we already have a timeout
+      if ( debounce ) {
+        clearTimeout(debounce)
+      }
+
+      // remember a new timeout
+      debounce = setTimeout(function() {
+        console.log('- timeout happened')
+        debounce = null
+        this.html = md.render(this.markdown)
+      }.bind(this), 500)
+    },
   },
   computed: {
     url: function() {
@@ -43,7 +73,7 @@ var app = new Vue({
       }
       return ''
     },
-    readme: function() {
+    markdown: function() {
       var text = ''
 
       // title
@@ -62,16 +92,36 @@ var app = new Vue({
       text += '\n\n'
 
       // overview
+      if ( this.url ) {
+        text += '## Overview [![GoDoc](https://godoc.org/' + this.url + '?status.svg)](https://godoc.org/' + this.url + ')'
+      }
+      else {
+        text += '## Overview'
+      }
+
+      // badges
+      if ( this.travis && this.username && this.name ) {
+        text += ' '
+        text += '[![Build Status]'
+        text += '(https://travis-ci.org/' + this.username + '/' + this.name + '.svg?branch=master)]'
+        text += '(https://travis-ci.org/' + this.username + '/' + this.name + ')'
+      }
+
+      // codeclimate
+      if ( this.codeclimate && this.username && this.name ) {
+        text += ' '
+        text += '[![Code Climate]'
+        text += '(https://codeclimate.com/github/' + this.username + '/' + this.name + '/badges/gpa.svg)]'
+        text += '(https://codeclimate.com/github/' + this.username + '/' + this.name + ')'
+      }
+
+      text += '\n\n'
+
       if ( this.desc ) {
-        if ( this.url ) {
-          text += '## Overview [![GoDoc](https://godoc.org/' + this.url + '?status.svg)](https://godoc.org/' + this.url + ')'
-        }
-        else {
-          text += '## Overview'
-        }
-        // ToDo: other badges
-        text += '\n\n'
         text += this.desc + '\n\n'
+      }
+      else {
+        text += 'ToDo.\n\n'
       }
 
       // install
@@ -92,19 +142,11 @@ var app = new Vue({
         } // else, do nothing yet
       }
 
+      this.render()
+
       return text
     },
   },
 })
 
 // --------------------------------------------------------------------------------------------------------------------
-
-// setTimeout(() => {
-//   app.step = 2
-// }, 3000)
-
-// setTimeout(() => {
-//   app.step = 3
-// }, 6000)
-
-app.step = pages
