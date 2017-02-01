@@ -105,9 +105,6 @@
 
         <!-- .step3 -->
         <div class="five columns" v-if="step === 3">
-
-        </div>
-        <div class="five columns" v-if="step === 3">
           <label for="installInput">Install Instructions</label>
           <p>Is this correct (please fill in project name and username first)?</p>
           <pre><code>go get {{ where === 'github' ? 'github.com' : 'bitbucket.org' }}/{{ username || '&lt;username&gt;' }}/{{ name || '&lt;name&gt;' }}</code></pre>
@@ -121,10 +118,14 @@
           </label>
           <div v-if="installOk === 'no'">
             <label for="installInput">Install Instructions</label>
-            <input id="installInput" class="u-full-width" v-model="install" placeholder="go get ...">
+            go get <div style="display: inline-block;"><input id="installInput" class="u-full-width" v-model="install" placeholder="example.com/user/repo"></div>
             <br>
             <span class="help">Please provide your own <code>go get</code> instructions.</span>
           </div>
+        </div>
+        <div class="five columns" v-if="step === 3">
+          <label for="exampleInput">Example</label>
+          <textarea id="exampleInput" class="u-full-width" rows="10" placeholder="..." v-model="example" style="height: 272px;"></textarea>
         </div>
         <!-- /.step3 -->
 
@@ -161,7 +162,7 @@
         <pre><code id="markdown" style="overflow-x: auto;">{{ markdown }}</code></pre>
       </div>
       <div class="six columns">
-        <h4>Preview (0.5s delay)</h4>
+        <h4>Preview (0.5s debounce)</h4>
         <div v-html="html" id="preview" style="background-color: #f1f1f1; border: 1px solid #e1e1e1; border-radius: 4px;"></div>
       </div>
     </div>

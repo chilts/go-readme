@@ -19,6 +19,7 @@ var app = new Vue({
     username : '',
     installOk: 'yes', // 'yes', 'no'.
     install: '',
+    example: '',
     travis : false,
     circle : false,
     codeclimate : false,
@@ -142,10 +143,18 @@ var app = new Vue({
         if ( this.install ) {
           text += '## Install\n\n'
           text += '```\n'
-          text += this.install
+          text += 'go get ' + this.install
           text += '\n```'
           text += '\n\n'
         } // else, do nothing yet
+      }
+
+      if ( this.example ) {
+        text += '## Example\n\n'
+        text += '```\n'
+        text += this.example
+        text += '\n```'
+        text += '\n\n'
       }
 
       this.render()
