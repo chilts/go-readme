@@ -44,13 +44,15 @@
       <div class="row">
 
         <div class="two columns">
-          <button @click="setStep(1)" class="button u-full-width" v-bind:class="isStepActive(1)">Step 1</button>
+          <button @click="setStep(1)" class="button u-full-width" v-bind:class="isStepActive(1)">Project / Repo</button>
           <br>
-          <button @click="setStep(2)" class="button u-full-width" v-bind:class="isStepActive(2)">Step 2</button>
+          <button @click="setStep(2)" class="button u-full-width" v-bind:class="isStepActive(2)">Description</button>
           <br>
-          <button @click="setStep(3)" class="button u-full-width" v-bind:class="isStepActive(3)">Step 3</button>
+          <button @click="setStep(3)" class="button u-full-width" v-bind:class="isStepActive(3)">Install / Example</button>
           <br>
-          <button @click="setStep(4)" class="button u-full-width" v-bind:class="isStepActive(4)">Step 4</button>
+          <button @click="setStep(4)" class="button u-full-width" v-bind:class="isStepActive(4)">Other Headers</button>
+          <br>
+          <button @click="setStep(5)" class="button u-full-width" v-bind:class="isStepActive(5)">Badges / License</button>
         </div>
 
         <!-- .step1 -->
@@ -131,6 +133,26 @@
 
         <!-- .step4 -->
         <div class="five columns" v-if="step === 4">
+          <p>Add other skeleton headings:</p>
+          <label>
+            <input type="checkbox" v-model="contributing">
+            <span class="label-body">Contributing</span>
+          </label>
+          <label>
+            <input type="checkbox" v-model="contributors">
+            <span class="label-body">Contributors</span>
+          </label>
+          <label>
+            <input type="checkbox" v-model="author">
+            <span class="label-body">Author</span>
+          </label>
+        </div>
+        <div class="five columns" v-if="step === 4">
+        </div>
+        <!-- /.step4 -->
+
+        <!-- .step5 -->
+        <div class="five columns" v-if="step === 5">
           <p>Would you like to include badges for the following?</p>
           <label>
             <input type="checkbox" v-model="travis">
@@ -144,10 +166,49 @@
             <input type="checkbox" v-model="codeclimate">
             <span class="label-body">Code Climate</span>
           </label>
-
+          <p>(If you want any more badge options, send me a <a href="https://github.com/chilts/go-readme">Pull Request to the Repo</a>. Thanks.)</p>
         </div>
-        <div class="five columns" v-if="step === 4">
+        <div class="five columns" v-if="step === 5">
+          <p>What license is this package?</p>
+          <label for="licenseMit">
+            <input id="licenseMit" type="radio" v-model="license" value="MIT">
+            <span class="label-body">MIT</span>
+          </label>
+          <label for="licenseIsc">
+            <input id="licenseIsc" type="radio" v-model="license" value="ISC">
+            <span class="label-body">ISC</span>
+          </label>
+          <label for="licenseFreeBsd">
+            <input id="licenseFreeBsd" type="radio" v-model="license" value="FreeBSD">
+            <span class="label-body">FreeBSD</span>
+          </label>
+          <label for="licenseNewBsd">
+            <input id="licenseNewBsd" type="radio" v-model="license" value="NewBSD">
+            <span class="label-body">NewBSD</span>
+          </label>
+          <label for="licenseApache2">
+            <input id="licenseApache2" type="radio" v-model="license" value="Apache 2.0">
+            <span class="label-body">Apache 2.0</span>
+          </label>
+          <label for="licenseMpl2">
+            <input id="licenseMpl2" type="radio" v-model="license" value="Mozille Public License v2">
+            <span class="label-body">Mozilla Public License v2.0</span>
+          </label>
+          <label for="licenseWtfpl">
+            <input id="licenseWtfpl" type="radio" v-model="license" value="WTFPL">
+            <span class="label-body">WTFPL</span>
+          </label>
+          <label for="licenseUnlicense">
+            <input id="licenseUnlicense" type="radio" v-model="license" value="Unlicense">
+            <span class="label-body">Unlicense</span>
+          </label>
+          <label for="licensePublicDomain">
+            <input id="licensePublicDomain" type="radio" v-model="license" value="Public Domain">
+            <span class="label-body">Public Domain</span>
+          </label>
+          <p>(If you want any more license options, send me a <a href="https://github.com/chilts/go-readme">Pull Request to the Repo</a>. Thanks.)</p>
         </div>
+        <!-- /.step5 -->
 
       </div>
       <!-- /.row -->

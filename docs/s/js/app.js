@@ -2,7 +2,7 @@
 
 var md = window.markdownit()
 
-var pages = 4
+var pages = 5
 var debounce = null
 
 // setup Clipboard
@@ -23,7 +23,11 @@ var app = new Vue({
     travis : false,
     circle : false,
     codeclimate : false,
+    contributing : false,
+    contributors : false,
+    author : false,
     html : '',
+    license : '',
 
     // display
     step: 1,
@@ -83,50 +87,38 @@ var app = new Vue({
       // title
       if ( this.name ) {
         text += '# ' + this.name
+        if ( this.summary ) {
+          text += ' : ' + this.summary
+        }
+        text += '\n\n'
       }
-      else {
-        text += '# <name>'
-      }
-      if ( this.summary ) {
-        text += ' : ' + this.summary
-      }
-      else {
-        text += ' : <summary>'
-      }
-      text += '\n\n'
 
       // overview
-      if ( this.url ) {
+      if ( this.name && this.username ) {
         text += '## Overview [![GoDoc](https://godoc.org/' + this.url + '?status.svg)](https://godoc.org/' + this.url + ')'
-      }
-      else {
-        text += '## Overview'
-      }
 
-      // badges
-      if ( this.travis && this.username && this.name ) {
-        text += ' '
-        text += '[![Build Status]'
-        text += '(https://travis-ci.org/' + this.username + '/' + this.name + '.svg?branch=master)]'
-        text += '(https://travis-ci.org/' + this.username + '/' + this.name + ')'
-      }
+        // badges
+        if ( this.travis ) {
+          text += ' '
+          text += '[![Build Status]'
+          text += '(https://travis-ci.org/' + this.username + '/' + this.name + '.svg?branch=master)]'
+          text += '(https://travis-ci.org/' + this.username + '/' + this.name + ')'
+        }
 
-      // codeclimate
-      if ( this.codeclimate && this.username && this.name ) {
-        text += ' '
-        text += '[![Code Climate]'
-        text += '(https://codeclimate.com/github/' + this.username + '/' + this.name + '/badges/gpa.svg)]'
-        text += '(https://codeclimate.com/github/' + this.username + '/' + this.name + ')'
-      }
+        // codeclimate
+        if ( this.codeclimate && this.username && this.name ) {
+          text += ' '
+          text += '[![Code Climate]'
+          text += '(https://codeclimate.com/github/' + this.username + '/' + this.name + '/badges/gpa.svg)]'
+          text += '(https://codeclimate.com/github/' + this.username + '/' + this.name + ')'
+        }
 
-      text += '\n\n'
+        text += '\n\n'
+      } // else, nothing
 
       if ( this.desc ) {
         text += this.desc + '\n\n'
-      }
-      else {
-        text += 'ToDo.\n\n'
-      }
+      } // else, nothing
 
       // install
       if ( this.installOk === 'yes' ) {
@@ -155,6 +147,26 @@ var app = new Vue({
         text += this.example
         text += '\n```'
         text += '\n\n'
+      }
+
+      if ( this.contributing ) {
+        text += '## Contributing\n\n'
+        text += 'ToDo.\n\n'
+      }
+
+      if ( this.contributors ) {
+        text += '## Contributors\n\n'
+        text += 'ToDo.\n\n'
+      }
+
+      if ( this.author ) {
+        text += '## Author\n\n'
+        text += 'ToDo.\n\n'
+      }
+
+      if ( this.license ) {
+        text += '## License\n\n'
+        text += this.license + ".\n\n"
       }
 
       this.render()
