@@ -7,7 +7,7 @@ Even though we have [GoDoc](https://godoc.org/) for the programmer docs, it is n
 at the same audience as the users who land here. This is especially true for people new to Go.
 
 See the original blog post for why this project exists :
-[README: Minimum Info needed for your GoLang library](https://chilts.org/2017/01/10/readme-minimum-info-needed-for-your-golang-library).
+[Creating a Better ReadMe for GoLang Packages](https://chilts.org/2017/01/10/readme-minimum-info-needed-for-your-golang-library).
 
 Use the online [GoReadMe generator](http://go-readme.golang.nz/).
 
