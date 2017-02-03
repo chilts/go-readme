@@ -23,6 +23,7 @@ var app = new Vue({
     travis : false,
     circle : false,
     codeclimate : false,
+    reportcard : false,
     contributing : false,
     contributors : false,
     author : false,
@@ -111,6 +112,14 @@ var app = new Vue({
           text += '[![Code Climate]'
           text += '(https://codeclimate.com/github/' + this.username + '/' + this.name + '/badges/gpa.svg)]'
           text += '(https://codeclimate.com/github/' + this.username + '/' + this.name + ')'
+        }
+
+        // reportcard
+        if ( this.reportcard && this.username && this.name ) {
+          text += ' '
+          text += '[![Go Report Card]'
+          text += '(https://goreportcard.com/badge/' + this.url + ')]'
+          text += '(https://goreportcard.com/report/' + this.url + ')'
         }
 
         text += '\n\n'
