@@ -24,6 +24,7 @@ var app = new Vue({
     circle : false,
     codeclimate : false,
     reportcard : false,
+    sourcegraph : false,
     contributing : false,
     contributors : false,
     author : false,
@@ -107,7 +108,7 @@ var app = new Vue({
         }
 
         // codeclimate
-        if ( this.codeclimate && this.username && this.name ) {
+        if ( this.codeclimate ) {
           text += ' '
           text += '[![Code Climate]'
           text += '(https://codeclimate.com/github/' + this.username + '/' + this.name + '/badges/gpa.svg)]'
@@ -115,11 +116,19 @@ var app = new Vue({
         }
 
         // reportcard
-        if ( this.reportcard && this.username && this.name ) {
+        if ( this.reportcard ) {
           text += ' '
           text += '[![Go Report Card]'
           text += '(https://goreportcard.com/badge/' + this.url + ')]'
           text += '(https://goreportcard.com/report/' + this.url + ')'
+        }
+
+        // sourcegraph
+        if ( this.sourcegraph ) {
+          text += ' '
+          text += '[![Sourcegraph]'
+          text += '(https://sourcegraph.com/' + this.url + '/-/badge.svg)]'
+          text += '(https://sourcegraph.com/' + this.url + '?badge)'
         }
 
         text += '\n\n'
