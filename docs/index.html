@@ -171,6 +171,10 @@
         <div class="five columns" v-if="step === 5">
           <p>Would you like to include badges for the following?</p>
           <label>
+            <input type="checkbox" v-model="godoc">
+            <span class="label-body">GoDoc</span>
+          </label>
+          <label>
             <input type="checkbox" v-model="travis">
             <span class="label-body">Travis CI Build Status</span>
           </label>

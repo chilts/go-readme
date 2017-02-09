@@ -20,6 +20,7 @@ var app = new Vue({
     installOk: 'yes', // 'yes', 'no'.
     install: '',
     example: '',
+    godoc : true,
     travis : false,
     circle : false,
     codeclimate : false,
@@ -97,9 +98,17 @@ var app = new Vue({
 
       // overview
       if ( this.name && this.username ) {
-        text += '## Overview [![GoDoc](https://godoc.org/' + this.url + '?status.svg)](https://godoc.org/' + this.url + ')'
+        text += '## Overview'
 
-        // badges
+        // godoc
+        if ( this.godoc ) {
+          text += ' '
+          text += '[![GoDoc]'
+          text += '(https://godoc.org/' + this.url + '?status.svg)]'
+          text += '(https://godoc.org/' + this.url + ')'
+        }
+
+        // travis
         if ( this.travis ) {
           text += ' '
           text += '[![Build Status]'
