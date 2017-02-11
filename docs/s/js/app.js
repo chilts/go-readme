@@ -23,6 +23,7 @@ var app = new Vue({
     godoc : true,
     travis : false,
     circle : false,
+    semaphore : false,
     codeclimate : false,
     reportcard : false,
     sourcegraph : false,
@@ -114,6 +115,17 @@ var app = new Vue({
           text += '[![Build Status]'
           text += '(https://travis-ci.org/' + this.username + '/' + this.name + '.svg?branch=master)]'
           text += '(https://travis-ci.org/' + this.username + '/' + this.name + ')'
+        }
+
+        // CircleCI
+        // ToDo: ... !
+
+        // SemaphoreCI
+        if ( this.semaphore ) {
+          text += ' '
+          text += '[![Build Status]'
+          text += '(https://semaphoreci.com/api/v1/' + this.username + '/' + this.name + '/branches/master/badge.svg)]'
+          text += '(https://semaphoreci.com/' + this.username + '/' + this.name + ')'
         }
 
         // codeclimate
